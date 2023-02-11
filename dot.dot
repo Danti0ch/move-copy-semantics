@@ -1,0 +1,35 @@
+digraph G{
+node [shape=record style=filled fillcolor="white" label="{a | 5 | 0x7ffeffd4af00}"] v0;
+node [shape=record style=filled fillcolor="white" label="{b | 5 | 0x7ffeffd4af30}"] v1;
+node [shape=record style=filled fillcolor="white" label="{a | 123 | 0x7ffeffd4af00}"] v2;
+node [shape=record label="="] oper0;
+node [shape=record label="123"] c0;
+c0 -> oper0;
+v0 -> oper0;
+oper0 -> v2;
+node [shape=record style=filled fillcolor="white" label="{c | 0 | 0x7ffeffd4af60}"] v3;
+node [shape=record style=filled fillcolor="white" label="{tmp0 | 0 | 0x7ffeffd4ae90}"] v4;
+node [shape=record label="-"] oper1;
+node [shape=record label="34"] c1;
+c1 -> oper1;
+v2 -> oper1;
+oper1 -> v4;
+node [shape=record style=filled fillcolor="white" label="{tmp0 | 89 | 0x7ffeffd4af90}"] v5;
+node [shape=record style=filled fillcolor="white" label="{tmp0 | 89 | 0x7ffeffd4af90}"] v5;
+node [label="move"] mv0;
+v4 -> mv0;
+mv0 -> v5;
+node [shape=record style=filled fillcolor="white" label="{tmp1 | 0 | 0x7ffeffd4ae90}"] v6;
+node [shape=record label="+"] oper2;
+v5 -> oper2;
+v1 -> oper2;
+oper2 -> v6;
+node [shape=record style=filled fillcolor="white" label="{tmp1 | 94 | 0x7ffeffd4afc0}"] v7;
+node [shape=record style=filled fillcolor="white" label="{tmp1 | 94 | 0x7ffeffd4afc0}"] v7;
+node [label="move"] mv1;
+v6 -> mv1;
+mv1 -> v7;
+node [label="move"] mv2;
+v7 -> mv2;
+mv2 -> v3;
+}
