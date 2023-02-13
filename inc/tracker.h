@@ -6,29 +6,8 @@
 
 typedef int CUR_T;
 
-const CUR_T POISON_CUR_T = 0xDEADBEEF;
+const CUR_T POISON_CUR_T = (int)0xDEADBEEF;
 
-/*
-struct OPER_CALL_LOG{
-    const char obj_name[10];
-};
-
-// TODO: rename
-
-template<typename T>
-struct arg_info{
-    Tracker<T>* p;
-    int hist_pos;
-};
-
-template<typename T>
-struct oper_log{
-    std::string oper_name;
-    //?
-    std::vector<arg_info<T>> args;
-    T res;
-};
-*/
 template<typename T>
 class VizDumper;
 
@@ -38,6 +17,7 @@ public:
 
     Tracker(const char* name);
     Tracker(const char* name, T val);
+    Tracker(T val);
 
 #ifdef ALLOW_COPY_NONCONST_SEMANTICS
     Tracker(const char* name, Tracker<T>& other);
@@ -76,18 +56,7 @@ public:
     Tracker operator*(const Tracker& other) const;
     Tracker operator/(const Tracker& other) const;
 
-    void operator+=(const CUR_T& other);
-    void operator-=(const CUR_T& other);
-    void operator*=(const CUR_T& other);
-    void operator/=(const CUR_T& other);
-
-    void operator=(const CUR_T& other);
-    Tracker operator+(const CUR_T& other);
-    Tracker operator-(const CUR_T& other);
-    Tracker operator*(const CUR_T& other);
-    Tracker operator/(const CUR_T& other);
-
-    static int last_n_node; //! init
+    static int last_n_node;
     int         n_node_;
 private:
     T           var_;
@@ -144,7 +113,6 @@ public:
     }
 
     void CreateVar(Tracker<T>& var){
-        // TODO: more info
         const void * addr = static_cast<const void*>(&var);
         std::stringstream ss;
         ss << addr;  
@@ -153,7 +121,7 @@ public:
         data_ += "node [shape=record style=filled fillcolor=\"white\" label=\"{" + var.name_ + " | " + std::to_string(var.var_) + " | " +  addr_str + "}\"] v" + std::to_string(var.n_node_) + ";\n";
     }
 
-    void CreateOper(const int& var1, const int& var2, const int& res, const char* name){
+    void CreateOper(int var1, int var2, int res, const char* name){
         data_ += "node [shape=record label=\"" + std::string(name) + "\"] oper" + std::to_string(oper_n_node_) + ";\n";
 
         data_ += "v" + std::to_string(var1) + " -> oper" + std::to_string(oper_n_node_) + ";\n";
@@ -164,7 +132,7 @@ public:
         cnst_node_++;
     }
     
-    void CreateOperCt(const int& var, const CUR_T& ct, const int& res, const char* name){
+    void CreateOperCt(int var, CUR_T ct, int res, const char* name){
         data_ += "node [shape=record label=\"" + std::string(name) + "\"] oper" + std::to_string(oper_n_node_) + ";\n";
         data_  += "node [shape=record label=\"" + std::to_string(ct) + "\"] c" + std::to_string(cnst_node_) + ";\n";
 
@@ -176,7 +144,7 @@ public:
         cnst_node_++;
     }
     
-    void CreateMove(const int& other, const int& to){
+    void CreateMove(int other, int to){
         data_  += "node [label=\"move\" style=filled fillcolor=\"green\"] mv" + std::to_string(move_node_) + ";\n";
 
         data_ += "v" + std::to_string(other) + " -> mv" + std::to_string(move_node_) + ";\n";
@@ -185,7 +153,7 @@ public:
         move_node_++;
     }
 
-    void CreateCopy(const int& other, const int& to){
+    void CreateCopy(int other, int to){
         data_  += "node [label=\"copy\"  style=filled fillcolor=\"red\"] cp" + std::to_string(move_node_) + ";\n";
 
         data_ += "v" + std::to_string(other) + " -> cp" + std::to_string(move_node_) + ";\n";
@@ -194,7 +162,7 @@ public:
         move_node_++;
     }
 
-    void CreateCopyCt(const T& other, const int& to){
+    void CreateCopyCt(T other, int to){
         data_  += "node [label=\"copy\"  style=filled fillcolor=\"red\"] cp" + std::to_string(move_node_) + ";\n";
         data_  += "node [shape=record label=\"" + std::to_string(other) + "\" style=filled fillcolor=\"white\"] c" + std::to_string(cnst_node_) + ";\n";
 
@@ -302,6 +270,20 @@ Tracker<T>::Tracker(const char* name, T val):
     usage_cap_(USAGE_CAP_MAX),
     var_(val),
     name_(name),
+    n_node_(last_n_node++)
+{
+    SEMC_INIT
+
+    VizDumper<T>::GetInstance()->CreateVar(*this);
+
+    SEMC_END
+}
+
+template <typename T>
+Tracker<T>::Tracker(T val):
+    usage_cap_(USAGE_CAP_MAX),
+    var_(val),
+    name_(generateTmpVarName()),
     n_node_(last_n_node++)
 {
     SEMC_INIT
@@ -499,35 +481,6 @@ Tracker<T> Tracker<T>::operator symb__(const Tracker<T>& other) const {   \
     return tmp;                                           \
 }
 
-#define BIN_CT_OPER_DEF(symb__)                          \
-template<typename T> \
-void Tracker<T>::operator symb__(const CUR_T& other){  \
-    if(!decrease_cap()) return;                       \
-                                                      \
-    var_ symb__ other;                           \
-    \
-    int cur_n_node = n_node_; \
-    n_node_ = last_n_node++;  \
-    VizDumper<T>::GetInstance()->CreateVar(*this);  \
-    VizDumper<T>::GetInstance()->CreateOperCt(cur_n_node, other, this->n_node_, #symb__); \
-}
-
-#define BIN_RET_CT_OPER_DEF(symb__)                          \
-template<typename T> \
-Tracker<T> Tracker<T>::operator symb__(const CUR_T& other){   \
-    if(!(check_cap())) return *this; \
-    decrease_cap();                      \
-                                                          \
-    if(!decrease_cap()) return *this;                     \
-                                                          \
-    Tracker<T> tmp(generateTmpVarName().c_str(), this->var_ symb__ other);                    \
-                                                          \
-                                                          \
-    VizDumper<T>::GetInstance()->CreateOperCt(this->n_node_, other, tmp.n_node_, #symb__); \
-    return tmp;                                           \
-}
-
-
 BIN_OPER_DEF(+=)
 BIN_OPER_DEF(-=)
 BIN_OPER_DEF(*=)
@@ -537,20 +490,6 @@ BIN_RET_OPER_DEF(+)
 BIN_RET_OPER_DEF(-)
 BIN_RET_OPER_DEF(*)
 BIN_RET_OPER_DEF(/)
-
-BIN_CT_OPER_DEF(=)
-BIN_CT_OPER_DEF(+=)
-BIN_CT_OPER_DEF(-=)
-BIN_CT_OPER_DEF(*=)
-BIN_CT_OPER_DEF(/=)
-
-BIN_RET_CT_OPER_DEF(+)
-BIN_RET_CT_OPER_DEF(-)
-BIN_RET_CT_OPER_DEF(*)
-BIN_RET_CT_OPER_DEF(/)
-
-#undef BIN_CT_OPER_DEF
-#undef BIN_RET_CT_OPER_DEF
 
 #undef BIN_OPER_DEF
 #undef BIN_RET_OPER_DEF

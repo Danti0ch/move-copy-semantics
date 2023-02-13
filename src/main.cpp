@@ -18,7 +18,7 @@ Tracker<T> func(Tracker<T>& a, Tracker<T>& b)
 {
     VizDumper<int>::GetInstance()->CreateArea(__PRETTY_FUNCTION__);
 
-    CREATE_AND_ASSIGNED_TRACKER(c, a + b - 0xDEADBEEF);
+    CREATE_AND_ASSIGNED_TRACKER(c, a + b - 15);
 
     VizDumper<int>::GetInstance()->CloseArea();
 
@@ -33,7 +33,7 @@ int main()
     CREATE_AND_ASSIGNED_TRACKER(a, 0);
     CREATE_AND_ASSIGNED_TRACKER(b, 1);
 
-    CREATE_AND_ASSIGNED_TRACKER(d, func(a, b));
+    CREATE_AND_ASSIGNED_TRACKER(d, a + b);
 
     //VizDumper<CUR_T>::GetInstance()->PasteText("wtf");
     VizDumper<int>::GetInstance()->CloseArea();
