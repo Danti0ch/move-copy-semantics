@@ -33,7 +33,7 @@ int main()
     CREATE_AND_ASSIGNED_TRACKER(a, 0);
     CREATE_AND_ASSIGNED_TRACKER(b, 1);
 
-    CREATE_AND_ASSIGNED_TRACKER(d, a + b);
+    CREATE_AND_ASSIGNED_TRACKER(d, func(a, b));
 
     //VizDumper<CUR_T>::GetInstance()->PasteText("wtf");
     VizDumper<int>::GetInstance()->CloseArea();

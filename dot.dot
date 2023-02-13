@@ -7,51 +7,111 @@ subgraph cluster_1{
 label = "Tracker<T>::Tracker(const char*, T) [with T = int]";
 style=rounded;
 color=grey;
-node [shape=record style=filled fillcolor="white" label="{a | 0 | 0x7fffd1ab4810}"] v0;
+node [shape=record style=filled fillcolor="white" label="{a | 0 | 0x7ffd63c714a0}"] v0;
 }
 
 subgraph cluster_2{
 label = "Tracker<T>::Tracker(const char*, T) [with T = int]";
 style=rounded;
 color=grey;
-node [shape=record style=filled fillcolor="white" label="{b | 1 | 0x7fffd1ab4840}"] v1;
+node [shape=record style=filled fillcolor="white" label="{b | 1 | 0x7ffd63c714d0}"] v1;
 }
 
 subgraph cluster_3{
-label = "Tracker<T> Tracker<T>::operator+(const Tracker<T>&) const [with T = int]";
+label = "Tracker<T> func(Tracker<T>&, Tracker<T>&) [with T = int]";
 style=rounded;
 color=grey;
 subgraph cluster_4{
+label = "Tracker<T>::Tracker(T) [with T = int]";
+style=rounded;
+color=grey;
+node [shape=record style=filled fillcolor="white" label="{tmp0 | 15 | 0x7ffd63c71410}"] v2;
+}
+
+subgraph cluster_5{
+label = "Tracker<T> Tracker<T>::operator+(const Tracker<T>&) const [with T = int]";
+style=rounded;
+color=grey;
+subgraph cluster_6{
 label = "Tracker<T>::Tracker(const char*, T) [with T = int]";
 style=rounded;
 color=grey;
-node [shape=record style=filled fillcolor="white" label="{tmp0 | 1 | 0x7fffd1ab47b0}"] v2;
+node [shape=record style=filled fillcolor="white" label="{tmp1 | 1 | 0x7ffd63c71330}"] v3;
 }
 
 node [shape=record label="+"] oper0;
 v0 -> oper0;
 v1 -> oper0;
-oper0 -> v2;
+oper0 -> v3;
 }
 
-subgraph cluster_5{
+subgraph cluster_7{
 label = "Tracker<T>::Tracker(const char*, const Tracker<T>&) [with T = int]";
 style=rounded;
 color=grey;
-node [shape=record style=filled fillcolor="white" label="{tmp1 | 1 | 0x7fffd1ab48a0}"] v3;
+node [shape=record style=filled fillcolor="white" label="{tmp2 | 1 | 0x7ffd63c713e0}"] v4;
 node [label="copy"  style=filled fillcolor="red"] cp0;
-v2 -> cp0;
-cp0 -> v3;
+v3 -> cp0;
+cp0 -> v4;
 }
 
-subgraph cluster_6{
-label = "Tracker<T>::Tracker(const char*, Tracker<T>&&) [with T = int]";
+subgraph cluster_8{
+label = "Tracker<T> Tracker<T>::operator-(const Tracker<T>&) const [with T = int]";
 style=rounded;
 color=grey;
-node [shape=record style=filled fillcolor="white" label="{d | 1 | 0x7fffd1ab4870}"] v4;
-node [label="move" style=filled fillcolor="green"] mv1;
-v3 -> mv1;
-mv1 -> v4;
+subgraph cluster_9{
+label = "Tracker<T>::Tracker(const char*, T) [with T = int]";
+style=rounded;
+color=grey;
+node [shape=record style=filled fillcolor="white" label="{tmp3 | -14 | 0x7ffd63c71330}"] v5;
+}
+
+node [shape=record label="-"] oper1;
+v4 -> oper1;
+v2 -> oper1;
+oper1 -> v5;
+}
+
+subgraph cluster_10{
+label = "Tracker<T>::Tracker(const char*, const Tracker<T>&) [with T = int]";
+style=rounded;
+color=grey;
+node [shape=record style=filled fillcolor="white" label="{tmp4 | -14 | 0x7ffd63c71440}"] v6;
+node [label="copy"  style=filled fillcolor="red"] cp1;
+v5 -> cp1;
+cp1 -> v6;
+}
+
+subgraph cluster_11{
+label = "Tracker<T>::Tracker(const char*, const Tracker<T>&) [with T = int]";
+style=rounded;
+color=grey;
+node [shape=record style=filled fillcolor="white" label="{c | -14 | 0x7ffd63c713b0}"] v7;
+node [label="copy"  style=filled fillcolor="red"] cp2;
+v6 -> cp2;
+cp2 -> v7;
+}
+
+}
+
+subgraph cluster_12{
+label = "Tracker<T>::Tracker(const char*, const Tracker<T>&) [with T = int]";
+style=rounded;
+color=grey;
+node [shape=record style=filled fillcolor="white" label="{tmp5 | -14 | 0x7ffd63c71530}"] v8;
+node [label="copy"  style=filled fillcolor="red"] cp3;
+v7 -> cp3;
+cp3 -> v8;
+}
+
+subgraph cluster_13{
+label = "Tracker<T>::Tracker(const char*, const Tracker<T>&) [with T = int]";
+style=rounded;
+color=grey;
+node [shape=record style=filled fillcolor="white" label="{d | -14 | 0x7ffd63c71500}"] v9;
+node [label="copy"  style=filled fillcolor="red"] cp4;
+v8 -> cp4;
+cp4 -> v9;
 }
 
 }
