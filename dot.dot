@@ -1,35 +1,107 @@
 digraph G{
-node [shape=record style=filled fillcolor="white" label="{a | 5 | 0x7ffeffd4af00}"] v0;
-node [shape=record style=filled fillcolor="white" label="{b | 5 | 0x7ffeffd4af30}"] v1;
-node [shape=record style=filled fillcolor="white" label="{a | 123 | 0x7ffeffd4af00}"] v2;
-node [shape=record label="="] oper0;
-node [shape=record label="123"] c0;
-c0 -> oper0;
+subgraph cluster_0{
+label = "int main()";
+style=rounded;
+color=grey;
+subgraph cluster_1{
+label = "Tracker<T>::Tracker(const char*, T) [with T = int]";
+style=rounded;
+color=grey;
+node [shape=record style=filled fillcolor="white" label="{a | 0 | 0x7ffd3557add0}"] v0;
+}
+
+subgraph cluster_2{
+label = "Tracker<T>::Tracker(const char*, T) [with T = int]";
+style=rounded;
+color=grey;
+node [shape=record style=filled fillcolor="white" label="{b | 1 | 0x7ffd3557ae00}"] v1;
+}
+
+subgraph cluster_3{
+label = "Tracker<T> func(Tracker<T>&, Tracker<T>&) [with T = int]";
+style=rounded;
+color=grey;
+subgraph cluster_4{
+label = "Tracker<T> Tracker<T>::operator+(const Tracker<T>&) const [with T = int]";
+style=rounded;
+color=grey;
+subgraph cluster_5{
+label = "Tracker<T>::Tracker(const char*, T) [with T = int]";
+style=rounded;
+color=grey;
+node [shape=record style=filled fillcolor="white" label="{tmp0 | 1 | 0x7ffd3557ac80}"] v2;
+}
+
+node [shape=record label="+"] oper0;
 v0 -> oper0;
+v1 -> oper0;
 oper0 -> v2;
-node [shape=record style=filled fillcolor="white" label="{c | 0 | 0x7ffeffd4af60}"] v3;
-node [shape=record style=filled fillcolor="white" label="{tmp0 | 0 | 0x7ffeffd4ae90}"] v4;
+}
+
+subgraph cluster_6{
+label = "Tracker<T>::Tracker(const char*, const Tracker<T>&) [with T = int]";
+style=rounded;
+color=grey;
+node [shape=record style=filled fillcolor="white" label="{tmp1 | 1 | 0x7ffd3557ad40}"] v3;
+node [label="copy"  style=filled fillcolor="red"] cp0;
+v2 -> cp0;
+cp0 -> v3;
+}
+
+subgraph cluster_7{
+label = "Tracker<T>::Tracker(const char*, T) [with T = int]";
+style=rounded;
+color=grey;
+node [shape=record style=filled fillcolor="white" label="{tmp2 | 559038738 | 0x7ffd3557ac80}"] v4;
+}
+
 node [shape=record label="-"] oper1;
-node [shape=record label="34"] c1;
+node [shape=record label="-559038737"] c1;
 c1 -> oper1;
-v2 -> oper1;
+v3 -> oper1;
 oper1 -> v4;
-node [shape=record style=filled fillcolor="white" label="{tmp0 | 89 | 0x7ffeffd4af90}"] v5;
-node [shape=record style=filled fillcolor="white" label="{tmp0 | 89 | 0x7ffeffd4af90}"] v5;
-node [label="move"] mv0;
-v4 -> mv0;
-mv0 -> v5;
-node [shape=record style=filled fillcolor="white" label="{tmp1 | 0 | 0x7ffeffd4ae90}"] v6;
-node [shape=record label="+"] oper2;
-v5 -> oper2;
-v1 -> oper2;
-oper2 -> v6;
-node [shape=record style=filled fillcolor="white" label="{tmp1 | 94 | 0x7ffeffd4afc0}"] v7;
-node [shape=record style=filled fillcolor="white" label="{tmp1 | 94 | 0x7ffeffd4afc0}"] v7;
-node [label="move"] mv1;
-v6 -> mv1;
-mv1 -> v7;
-node [label="move"] mv2;
-v7 -> mv2;
-mv2 -> v3;
+subgraph cluster_8{
+label = "Tracker<T>::Tracker(const char*, const Tracker<T>&) [with T = int]";
+style=rounded;
+color=grey;
+node [shape=record style=filled fillcolor="white" label="{tmp3 | 559038738 | 0x7ffd3557ad70}"] v5;
+node [label="copy"  style=filled fillcolor="red"] cp1;
+v4 -> cp1;
+cp1 -> v5;
+}
+
+subgraph cluster_9{
+label = "Tracker<T>::Tracker(const char*, const Tracker<T>&) [with T = int]";
+style=rounded;
+color=grey;
+node [shape=record style=filled fillcolor="white" label="{c | 559038738 | 0x7ffd3557ad10}"] v6;
+node [label="copy"  style=filled fillcolor="red"] cp2;
+v5 -> cp2;
+cp2 -> v6;
+}
+
+}
+
+subgraph cluster_10{
+label = "Tracker<T>::Tracker(const char*, const Tracker<T>&) [with T = int]";
+style=rounded;
+color=grey;
+node [shape=record style=filled fillcolor="white" label="{tmp4 | 559038738 | 0x7ffd3557ae60}"] v7;
+node [label="copy"  style=filled fillcolor="red"] cp3;
+v6 -> cp3;
+cp3 -> v7;
+}
+
+subgraph cluster_11{
+label = "Tracker<T>::Tracker(const char*, const Tracker<T>&) [with T = int]";
+style=rounded;
+color=grey;
+node [shape=record style=filled fillcolor="white" label="{d | 559038738 | 0x7ffd3557ae30}"] v8;
+node [label="copy"  style=filled fillcolor="red"] cp4;
+v7 -> cp4;
+cp4 -> v8;
+}
+
+}
+
 }
