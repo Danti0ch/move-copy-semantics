@@ -14,7 +14,7 @@ main: $(BUILD_DIR)/main.o
 	g++ $(BUILD_DIR)/main.o -o main
 
 $(BUILD_DIR)/main.o: $(SRC_DIR)/main.cpp $(INC_DIR)/tracker.h
-	g++ -c -fno-elide-constructors -D ALLOW_COPY_SEMANTICS -I$(INC_DIR) \$(SRC_DIR)/main.cpp -o $(BUILD_DIR)/main.o
+	g++ -c -fno-elide-constructors -D ALLOW_COPY_SEMANTICS -D ALLOW_MOVE_SEMANTICS -I$(INC_DIR) \$(SRC_DIR)/main.cpp -o $(BUILD_DIR)/main.o
 
 clear:
 	rm $(BUILD_DIR)/*
