@@ -123,14 +123,20 @@ public:
         ss << addr;  
         std::string addr_str = ss.str(); 
 
-        if(var.var_type_ == VAR_TYPE::TEMP)
-            data_ += "node [shape=record style=filled fillcolor=\"#FFBA00\" label=\"{" + var.name_ + " | " + std::to_string(var.var_) + " | " +  addr_str + "}\"] v" + std::to_string(var.n_node_) + ";\n";
-        else
-            data_ += "node [shape=record style=filled fillcolor=\"#FFFDD0\" label=\"{" + var.name_ + " | " + std::to_string(var.var_) + " | " +  addr_str + "}\"] v" + std::to_string(var.n_node_) + ";\n";
+        data_ += "node [shape=record style=filled fillcolor=\"#fefdce\" label=\"{" + var.name_ + " | " + std::to_string(var.var_) + " | " +  addr_str + "}\"] v" + std::to_string(var.n_node_) + ";\n";
+    }
+
+    void CreateTmpVar(Tracker<T>& var){
+        const void * addr = static_cast<const void*>(&var);
+        std::stringstream ss;
+        ss << addr;  
+        std::string addr_str = ss.str(); 
+
+        data_ += "node [shape=record style=filled fillcolor=\"#f8b90f\" label=\"{" + var.name_ + " | " + std::to_string(var.var_) + " | " +  addr_str + "}\"] v" + std::to_string(var.n_node_) + ";\n";
     }
 
     void CreateOper(int var1, int var2, int res, const char* name){
-        data_ += "node [shape=record style=filled fillcolor=pink label=\"" + std::string(name) + "\"] oper" + std::to_string(oper_n_node_) + ";\n";
+        data_ += "node [shape=record style=filled fillcolor=\"#ffc1ca\" label=\"" + std::string(name) + "\"] oper" + std::to_string(oper_n_node_) + ";\n";
 
         data_ += "v" + std::to_string(var1) + " -> oper" + std::to_string(oper_n_node_) + ";\n";
         data_ += "v" + std::to_string(var2) + " -> oper" + std::to_string(oper_n_node_) + ";\n";
@@ -162,7 +168,7 @@ public:
     }
 
     void CreateCopy(int other, int to){
-        data_  += "node [label=\"copy\"  style=filled fillcolor=\"#FF6242\"] cp" + std::to_string(move_node_) + ";\n";
+        data_  += "node [label=\"copy\"  style=filled fillcolor=\"#DC143C\"] cp" + std::to_string(move_node_) + ";\n";
 
         data_ += "v" + std::to_string(other) + " -> cp" + std::to_string(move_node_) + ";\n";
         data_ += "cp" + std::to_string(move_node_) + " -> v" + std::to_string(to) + ";\n";
@@ -171,7 +177,7 @@ public:
     }
 
     void CreateCopyCt(T other, int to){
-        data_  += "node [label=\"copy\"  style=filled fillcolor=\"#FF6242\"] cp" + std::to_string(move_node_) + ";\n";
+        data_  += "node [label=\"copy\"  style=filled fillcolor=\"#DC143C\"] cp" + std::to_string(move_node_) + ";\n";
         data_  += "node [shape=record label=\"" + std::to_string(other) + "\" style=filled fillcolor=\"white\"] c" + std::to_string(cnst_node_) + ";\n";
 
         data_ += "c" + std::to_string(cnst_node_) + " -> cp" + std::to_string(move_node_) + ";\n";
@@ -183,9 +189,9 @@ public:
 
     void CreateArea(const char* func_name){
 
-        data_ += "subgraph cluster_" + std::to_string(n_sub_graph_) + "{\n label = \"" + std::string(func_name) + "\";\n"
-                  "style=filled fillcolor=\"#00000010\";\n"
-                  "color=grey;\n";
+        data_ += "subgraph cluster_" + std::to_string(n_sub_graph_) + "{\nlabel = \"" + std::string(func_name) + "\";\n"
+                  "style=filled;\n"
+                  "fillcolor=\"#00000010\";\n";
         n_sub_graph_++;
     }
 
@@ -299,7 +305,7 @@ Tracker<T>::Tracker(T val):
 {
     SEMC_INIT
 
-    VizDumper<T>::GetInstance()->CreateVar(*this);
+    VizDumper<T>::GetInstance()->CreateTmpVar(*this);
 
     SEMC_END
 }
@@ -324,11 +330,10 @@ Tracker<T>::Tracker(const Tracker<T>& other):
     usage_cap_(USAGE_CAP_MAX),
     var_(other.var_),
     name_(generateTmpVarName()),
-    n_node_(last_n_node++),
-    var_type_(VAR_TYPE::TEMP)
+    n_node_(last_n_node++)
 {
     SEMC_INIT
-    VizDumper<T>::GetInstance()->CreateVar(*this);
+    VizDumper<T>::GetInstance()->CreateTmpVar(*this);
     VizDumper<T>::GetInstance()->CreateCopy(other.n_node_, n_node_);
     SEMC_END
 }
@@ -340,7 +345,7 @@ Tracker<T>& Tracker<T>::operator=(const Tracker& other){
 
     var_ = other.var_;
     
-    VizDumper<T>::GetInstance()->CreateVar(*this);
+    VizDumper<T>::GetInstance()->CreateTmpVar(*this);
     VizDumper<T>::GetInstance()->CreateCopy(other.n_node_, n_node_);
 
     SEMC_END
@@ -423,12 +428,12 @@ Tracker<T>::Tracker(Tracker<T>&& other):
     usage_cap_(USAGE_CAP_MAX),
     var_(other.var_),
     name_(generateTmpVarName()),
-    n_node_(last_n_node++),
-    var_type_(VAR_TYPE::TEMP)
+    n_node_(last_n_node++)
 {
     SEMC_INIT
+    other.var_ = POISON_CUR_T;
 
-    VizDumper<T>::GetInstance()->CreateVar(*this);
+    VizDumper<T>::GetInstance()->CreateTmpVar(*this);
     VizDumper<T>::GetInstance()->CreateMove(other.n_node_, n_node_);
 
     SEMC_END
@@ -443,7 +448,7 @@ Tracker<T>& Tracker<T>::operator=(Tracker&& other){
     var_ = other.var_;
     other.var_ = tmp;
 
-    VizDumper<T>::GetInstance()->CreateVar(*this);    
+    VizDumper<T>::GetInstance()->CreateTmpVar(*this);    
     VizDumper<T>::GetInstance()->CreateMove(other.n_node_, n_node_);
 
     SEMC_END
@@ -477,17 +482,17 @@ Tracker<T>::Tracker(const Tracker&& other):
     usage_cap_(USAGE_CAP_MAX),
     var_(other.var_),
     name_(generateTmpVarName()),
-    n_node_(last_n_node++),
-    var_type_(VAR_TYPE::TEMP)
+    n_node_(last_n_node++)
 {
     SEMC_INIT
     //! other.var_ != POISON_CUR_T;
 
-    VizDumper<T>::GetInstance()->CreateVar(*this);
+    VizDumper<T>::GetInstance()->CreateTmpVar(*this);
     VizDumper<T>::GetInstance()->CreateCopy(other.n_node_, n_node_);
 
     SEMC_END
 }
+
 
 template<typename T>
 Tracker<T>& Tracker<T>::operator=(const Tracker&& other){
