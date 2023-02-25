@@ -1,0 +1,171 @@
+{
+  "main": {
+    "id": "02c0d6080cec5aae",
+    "type": "split",
+    "children": [
+      {
+        "id": "4ae2eb5e08994956",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4ec62648409b74fd",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "как должен выглядеть дамп.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "8d70f406b200a878",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "plan.canvas",
+                "viewState": {
+                  "x": 0,
+                  "y": 13.914352128634,
+                  "zoom": 0,
+                  "snapToGrid": false
+                }
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "1c5dccdccd318991",
+    "type": "split",
+    "children": [
+      {
+        "id": "f308efd0166da61b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7e049e5cbc4788b9",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "b204861cc9b08ae7",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "884706c6bd02fd0c",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "d655eb57ff43e526",
+    "type": "split",
+    "children": [
+      {
+        "id": "41c14634c053f590",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c323aca2c66a97f2",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "как должен выглядеть дамп.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "c30bc476ebc928a0",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "как должен выглядеть дамп.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "d2fc0f12d1f6566a",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "79be5edafbdb352b",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "как должен выглядеть дамп.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "4ec62648409b74fd",
+  "lastOpenFiles": [
+    "plan.canvas",
+    "как должен выглядеть дамп.md",
+    "конспект по rvalue,xvalue.md"
+  ]
+}

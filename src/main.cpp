@@ -29,7 +29,6 @@ int main()
 {
     VizDumper<int>::GetInstance()->CreateArea(__PRETTY_FUNCTION__);
 
-
     CREATE_AND_ASSIGNED_TRACKER(a, 0);
     CREATE_AND_ASSIGNED_TRACKER(b, 1);
 

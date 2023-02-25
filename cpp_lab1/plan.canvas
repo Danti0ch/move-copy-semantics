@@ -1,0 +1,26 @@
+{
+	"nodes":[
+		{"id":"1e778cd0cdfc67a7","x":198,"y":30,"width":250,"height":60,"type":"text","text":"дописать графику"},
+		{"id":"ae5c1ae23cb6384f","x":-443,"y":-139,"width":250,"height":60,"type":"text","text":"generateTmpVarName error"},
+		{"id":"dee8a669887ab574","x":-637,"y":30,"width":250,"height":50,"type":"text","text":"статьи"},
+		{"id":"c48a6a9877f6eabc","x":-735,"y":159,"width":250,"height":60,"type":"text","text":"страус"},
+		{"id":"17e9e1671d007b4b","x":-463,"y":172,"width":250,"height":60,"type":"text","text":"хабр 2"},
+		{"id":"9d15013dfb4d206e","x":408,"y":232,"width":250,"height":60,"type":"text","text":"навести красоту"},
+		{"id":"caf52194cb3440ec","x":50,"y":232,"width":250,"height":60,"color":"5","type":"text","text":"сабграфы на вызовы функций"},
+		{"id":"15de798eacd2bcb5","x":53,"y":-295,"width":250,"height":60,"type":"text","text":"РЕДМИ"},
+		{"id":"2b2856ad9295e474","x":-50,"y":-173,"width":250,"height":60,"type":"text","text":"заебашить картинки с коментами"},
+		{"id":"be9615c478678712","x":221,"y":-161,"width":250,"height":60,"type":"text","text":"заебашить ссылки на литру"},
+		{"id":"34d6954f8ffcb825","x":80,"y":-49,"width":250,"height":60,"type":"text","text":"добавить коменты после прочтения статей с хабра"},
+		{"id":"1f38453d34aeef76","x":-352,"y":332,"width":250,"height":60,"type":"text","text":"фикс логи(красота)"}
+	],
+	"edges":[
+		{"id":"30d0e499cb1e7a90","fromNode":"1e778cd0cdfc67a7","fromSide":"bottom","toNode":"caf52194cb3440ec","toSide":"top"},
+		{"id":"da39099bd481d820","fromNode":"1e778cd0cdfc67a7","fromSide":"bottom","toNode":"9d15013dfb4d206e","toSide":"top"},
+		{"id":"c2faa345316609eb","fromNode":"dee8a669887ab574","fromSide":"bottom","toNode":"c48a6a9877f6eabc","toSide":"top"},
+		{"id":"8bb9982a3730792e","fromNode":"dee8a669887ab574","fromSide":"bottom","toNode":"17e9e1671d007b4b","toSide":"top"},
+		{"id":"d2cf3b78179071bb","fromNode":"15de798eacd2bcb5","fromSide":"bottom","toNode":"2b2856ad9295e474","toSide":"top"},
+		{"id":"7147b459c2c73aa1","fromNode":"15de798eacd2bcb5","fromSide":"bottom","toNode":"be9615c478678712","toSide":"top"},
+		{"id":"17c09582aa46174b","fromNode":"15de798eacd2bcb5","fromSide":"bottom","toNode":"34d6954f8ffcb825","toSide":"top"},
+		{"id":"452a5fddd463aec3","fromNode":"dee8a669887ab574","fromSide":"right","toNode":"34d6954f8ffcb825","toSide":"left"}
+	]
+}
