@@ -24,7 +24,7 @@ typename remove_reference<T>::type&& move(T&& obj) {
 }
 
 template<class T>
-T&& my_forward(T& a)
+T&& forward(T& a)
 {
     return static_cast<T&&>(a);
 }
