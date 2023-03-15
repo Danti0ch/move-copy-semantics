@@ -43,7 +43,7 @@ MyClass C    = tmp1;
 
 Посмотрим на дамп и оценим количество конструкторов копирования и временных объектов.
 
-<img src="logs/graph1.png" width="150" height="280">
+<img src="logs/graph1.png" class="center" width="300">
 
 Многовато!
 
