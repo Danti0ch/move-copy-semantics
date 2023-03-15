@@ -27,7 +27,7 @@ simple_test: $(BUILD_DIR)/simple_test.o
 	g++ $(BUILD_DIR)/simple_test.o -o simple_test
 
 $(BUILD_DIR)/simple_test.o: $(SRC_DIR)/simple_test.cpp $(INC_DIR)/tracker.h
-	g++ -c -D ALLOW_MOVE_SEMANTICS -D ALLOW_COPY_SEMANTICS -I$(INC_DIR) \$(SRC_DIR)/simple_test.cpp -o $(BUILD_DIR)/simple_test.o
+	g++ -c -fno-elide-constructors -D ALLOW_MOVE_SEMANTICS -D ALLOW_COPY_SEMANTICS -I$(INC_DIR) \$(SRC_DIR)/simple_test.cpp -o $(BUILD_DIR)/simple_test.o
 
 clear:
 	rm $(BUILD_DIR)/*
